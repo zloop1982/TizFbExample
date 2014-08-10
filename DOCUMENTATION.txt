@@ -1,0 +1,261 @@
+Copyright (c) 2014 Christian Schabesberger 
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy 
+of this software and associated documentation files (the "Software"), to deal 
+in the Software without restriction, including without limitation the rights 
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
+copies of the Software, and to permit persons to whom the Software is 
+furnished to do so, subject to the following conditions: 
+
+The above copyright notice and this permission notice shall be included in 
+all copies or substantial portions of the Software. 
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
+THE SOFTWARE.
+
+-----------------------------------------------------
+|This is the Documentation of the TizFacebook class.|
+-----------------------------------------------------
+
+TizFacebook() 
+TizFacebook(QObject *parent):
+-----------------------------
+   Creates a new TizFacebook object.
+
+(public) bool isLoggedIn() const:
+---------------------------------
+   Returns true if a valid access-token is available and  the facebook 
+   service is reachable.
+   See also:
+      hasValidAccessToken()
+      isOnline()
+
+(public) bool hasValidAccessToken():
+------------------------------------
+   Returns true if a valid access-token is available
+   See also:
+      isLogedIn()
+      isOnline()
+
+(public) void setFacebookDir(QString):
+--------------------------------------
+   Sets the directory in which TizFacebook is storing informations.
+   The path you enter is related to the home directory of your app.
+   See also:
+      createFbDir()
+      deleteFbDir()
+
+(public) void setClientToken(const Qstring &):
+----------------------------------------------
+   Sets the client token. The client token is a special token 
+   representing your app. You need to set
+   this before you can call login().
+   See also:
+      login()
+      https://developers.facebook.com/docs/facebook-login/access-tokens
+
+(public) void setReadPermissions(const QstringList &):
+------------------------------------------------------
+   Sets the read permissions you want to request. If empty, 
+   public_profile permissions will be requested.
+   See also:
+      setPublishPermissions(const QstringList &)
+      getGrantedPermissions()
+      https://developers.facebook.com/docs/facebook-login/permissions/v2.0
+
+(public) void setPublishPermissions(const QstringList &):
+---------------------------------------------------------
+   Sets the publish permissions you want to request. If empty, 
+   no publish permissions will be requestd.
+   See also:
+      setReadPermissions()
+      getGrantedPermissions()
+      https://developers.facebook.com/docs/facebook-login/permissions/v2.0
+
+(public) void setGeneralTimeout(const int &):
+---------------------------------------------
+   Sets the time for get() or post() network operation until 
+   it brakes up. Pre set value is 10 seconds.
+   See also:
+      get()
+      simpleGet()
+      post()
+      connectionFailed()
+
+(public) void setStdPicture(const Qstring &):
+---------------------------------------------
+   Sets the standard profile picture that will be shown if a certain 
+   user has no profile picture or a profile picture couldn't be requested.
+   See also:
+      getStdPicture()
+      getPicture()
+
+(public) void deleteFbDir():
+----------------------------
+   Will delete the facebook directory. Also the facebook 
+   directory will automatically be deleted on logout.
+   See also:
+      logout()
+      setFacebookDir()
+      createFbDir()
+     
+(public) bool testConnection():
+-------------------------------
+   Returns true if a valid connection to the facebook service is possible
+   See also:
+      hasValidAccessToken()
+      isOnline()
+
+(public) Qpixmap* getStdPicture(): 
+----------------------------------
+   Returns the standard picture that will be shown if a certain
+   user has no profile picture or a profile picture couldn't be requested.
+   See also:
+      setStdPicture()
+      getPicture()
+
+(public) Qstring getId(QString id = “”):
+----------------------------------------
+   Returns the id of the user given by the parameter id or if id 
+   is empty the id of the logged in user.
+
+(public) Qstring getName(QString id = “”):
+------------------------------------------
+   Returns the whole name of the user given by the parameter 
+   id or if id is empty the name of the loged in user.
+
+(public) Qstring getFirstName(QString id = “”):
+-----------------------------------------------
+    Returns the first name of the user given by the parameter id or if 
+    id is empty the first name of the loged in user.
+
+(public) Qstring getLastName(QString id = “”):
+----------------------------------------------
+   Returns the last name of the user given by the parameter id or 
+   if id is empty the first name of the loged in user.
+
+(public) Qpixmap getPicture(QString id = “”, bool forceDownload = false):
+-------------------------------------------------------------------------
+   Load and returns the profile picture of a user represented by the 
+   parameter id. The picture will be taken from the facebook directory. 
+   If it is not stored there it will be downloaded from the facebook service.
+   The parameter forceDownload will force the function to download a 
+   profile picture even it is available at the facebook directory.
+   See also:
+      setFacebookDir()
+
+(public) bool isMale(QString id=””):
+------------------------------------
+   Returns true if the gender of the user is male. 
+   Returns false if the gender is not male.
+
+(public) QstringList getFriendsUsingApp():
+------------------------------------------
+   Returns all the friends of the logged in user who also use your app.
+
+(public) QstringList getGrantedPermissions():
+---------------------------------------------
+   Returns the permissions which were granted by the facebook SDK
+   See also:
+      setReadPermissions()
+      setPublishPermissions()
+      login()
+
+(public) QDateTime getExpirationDate():
+---------------------------------------
+   Returns the date the requested access-token will be expired.
+
+(public) Bool isOnline():
+-------------------------
+   Returns true if the last call of testConnection() was successful.
+
+(public) Void requestMe(bool force = false, bool save = false):
+---------------------------------------------------------------
+   This function will request the public profile information of 
+   the logged in user and stores it in memory. This only happens 
+   the first time you call this function unless 
+   the parameter force is true. So if any function is requesting 
+   user information no new connection is established. 
+   If the save parameter is true this function will save the requested 
+   informations in the facebook directory which makes 
+   the user data offline available.
+
+(public siganls) loginChanged(bool loggedIn, bool online):
+----------------------------------------------------------
+   This signal is emitted when the login state changes. The parameters loggedIn 
+   and online will have the same value as isLoggedIn() and isOnline() would return.
+   See also:
+      isLoggedIn()
+      isOnline()
+      login()
+      logout()
+
+(public signals) connectionFailed():
+------------------------------------
+   This signal will be emitted when the connection runs out of time.
+
+(protected) QbyteArray simpleGet(QUrl url, int to = 0):
+-------------------------------------------------------
+   This function returns the raw reply represented by the parameter url. 
+   The parameter will override the general timeout.
+   See also:
+      get()
+
+(protected) QjsonDocument get(QStirng path, Qstring fields, int to):
+--------------------------------------------------------------------
+   This function returns a QjsonDocument created by the 
+   OpenGraph API. You don't need to care about connection and 
+   access-token. This will be handled automatically. For path
+   simply enter a path like “/me” or “/me/friendlist”. For fields 
+   enter “id,name” or “id,friends.fields(id)” for example. 
+   More information about how to handle this exactly you 
+   will find at the open graph documentation or 
+   the Open Graph browser. The parameter 
+   will override the general timeout.
+   See also:
+      setReadPermissions()
+      simpleGet()
+      post()
+      https://developers.facebook.com/docs/graph-api
+      https://developers.facebook.com/tools/explorer
+
+(protected) bool post(QString path, Qstring variable, Qstring value, int to):
+-----------------------------------------------------------------------------
+   This function can publich data of a single value. 
+   Information about how to post data you will find at 
+   the open graph documentation or the Open Graph browser. 
+   The parameter will override the general timeout. 
+   This function returns whether it succeeds or not.
+   See also:
+      get()
+      setPublishPermissions()
+      https://developers.facebook.com/docs/graph-api
+      https://developers.facebook.com/tools/explorer
+
+(protected) bool post(QString path, Qhash<QString, Qstring> data, int to):
+--------------------------------------------------------------------------
+   This function can publish multiple data. Information 
+   about how to post data you will find at the open graph documentation. 
+   The parameter will override the general timeout. 
+   This function returns whether it succeeds or not.
+   See also:
+      get()
+      setPublishPermissions()
+      https://developers.facebook.com/docs/graph-api
+      https://developers.facebook.com/tools/explorer
+
+(protected) void createFbDir():
+-------------------------------
+   This function tests if the facebook directory is present. 
+   If not it will be created. This function is useful if you 
+   want to store your own informations at the facebook directory.
+   See also:
+      setFacebookDir()
+      deleteFbDir()
+      
