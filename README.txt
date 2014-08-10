@@ -23,14 +23,16 @@ THE SOFTWARE.
 |This is the instruction to get this App or the TizFacebook SDK running.|
 -------------------------------------------------------------------------
 
-First things first. TizFacebook is only a wrapper for the regular Facebook SDK for Android 
-(current supported version: 3.16) and the Open Graph API (v. 2.0). It only uses Facebook SDK 
-for requesting longterm access-token in order to manage login and logout. The regular request is 
-then done by the JSON based Open Graph API, using QNetworkManager, and the QJson classes. 
-TizFacebook can be compiled for Android and PC. The PC version only provides rudimentary login 
-functionality (it only requests shortterm access-token). 
-The TizFacebook repository is not delivering the original Facebook SDK. So in order to get 
-your App running you also need to download Facebook SDK for Android (v. 3.16).
+First things first. TizFacebook is a wrapper for the regular Facebook SDK for Android 
+(current supported version: 3.16) and the Open Graph API (v. 2.0). 
+Its made to use and connect to facebook with an Qt Android app, written in C++. 
+TizFacebook only uses Facebook SDK for requesting longterm access-token in order to manage 
+login and logout. The regular request is then done by the JSON based Open Graph API, 
+using QNetworkManager, and the QJson classes. TizFacebook can be compiled for 
+Android and PC. The PC version only provides rudimentary login functionality 
+(it only requests shortterm access-token). The TizFacebook repository is not 
+delivering the original Facebook SDK. So in order to get your App running you also 
+need to download Facebook SDK for Android (v. 3.16).
 
 ---------------------------
 |Getting this App running:|
