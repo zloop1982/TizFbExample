@@ -75,7 +75,7 @@ void TizFacebook::login()
     if(clientToken.isEmpty())
         qDebug()<<"Error: TizFacebook: clientToken not set";
     else {
-        if(!isLogedIn())
+        if(!isLoggedIn())
             loginSystem->login(clientId, clientToken, readPermissions, publishPermissions);
         else {
             qDebug()<<"Login requestet but allready logged in";
@@ -86,7 +86,7 @@ void TizFacebook::login()
 
 void TizFacebook::logout()
 {
-    if(isLogedIn())
+    if(isLoggedIn())
     {
         loginSystem->logout();
         accessToken = "";

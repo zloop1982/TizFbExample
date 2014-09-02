@@ -54,13 +54,13 @@ Preparation:
    on Linux and Mac OSX run:
    keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore | openssl sha1 -binary | openssl base64
 
-   You will be prompted for a password. If not something went wrong you must check if 
+   You will be prompted for a password. If not something went wrong and you must check if 
    debug.keystore is present somewhere. If you where prompted for one just enter “android” as password. 
    Now copy the generated key and paste it into the “Key Hashes” field of your App Settings.
 5. At last make sure “Single Sign On” is enabled, then save your changes.
 
-Merge the Facebook SDK into your project:
------------------------------------------
+Merge the Facebook SDK into TizFbExample project:
+-------------------------------------------------
 
 1. Download Facebook SDK for Android (v. 3.16) https://developers.facebook.com/docs/android/downloads
 2. unpack the facebook-android-3.16 folder and enter it
@@ -70,7 +70,8 @@ Merge the Facebook SDK into your project:
 6. from res copy every folder except the values folder into TizFbExample/android/res
 7. now copy all files from res/values except strings.xml into TizFbExample/android/res/values
    the strings.xml file does not need to be changed it already contains all necessary
-8. - open up the Qt Creator enter the TizFbExample project and press Strg + Shift + F
+8. Change the location of the Android resource file in the Facebook SDK sourcecode:
+   - open up the Qt Creator enter the TizFbExample project and press Strg + Shift + F
    - for scope select “Files on File System”
    - the phrase you search for is “com.facebook.android”
    - for the target directory enter <path_to_project>/TizFbExample/android/src/com/facebook
@@ -81,11 +82,11 @@ Merge the Facebook SDK into your project:
 Setting up TizFbExample App:
 ----------------------------
 
-1. At file android/res/strings.xml in line 9:
+1. At file android/res/strings.xml in line 11:
    replace <app_id here> with the app ID witch is displayed at the dashboard 
    of your Facebook App.
 2. At your apps dashboard go to settings and click there on the “Advanced” tab. 
-   Now your should see a field called “Client Token”. Copy this token and replace 
+   Now you should see a field called “Client Token”. Copy this token and replace 
    <client_token here> at file src/mainWindow.cpp in line 22.
 
 Now if everything worked well you should be ready to compile and run TizFbExample.
@@ -129,8 +130,9 @@ Merge the Facebook SDK into your app:
    TizFbExample/android/res/values/strings.xml to your own strings.xml. If you do not have a costumized 
    strings.xml simply copy the whole file into <your_app_root>/android/res/values.
 10. At your now created strings.xml file you will find a token called “<string name="app_id"><app_id here></string>”. 
-    Replace <app_id here> with the app is displayed on the dashboard of your facebook app.
-9.	- open up the Qt Creator enter your project and press Strg + Shift + F
+    Replace <app_id here> with the app id displayed on the dashboard of your facebook app.
+9. Change the location of the Android resource file in the Facebook SDK sourcecode:	
+        - open up the Qt Creator enter your project and press Strg + Shift + F
 	- for scope select “Files on File System”
 	- the phrase you search for is “com.facebook.android”
 	- for the target directory enter <your_project_root>/android/src/com/facebook

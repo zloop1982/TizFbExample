@@ -112,7 +112,7 @@ TizFacebook(QObject *parent):
       hasValidAccessToken()
       isOnline()
 
-(public) Qpixmap* getStdPicture(): 
+(public) QPixmap* getStdPicture(): 
 ----------------------------------
    Returns the standard picture that will be shown if a certain
    user has no profile picture or a profile picture couldn't be requested.
@@ -120,7 +120,7 @@ TizFacebook(QObject *parent):
       setStdPicture()
       getPicture()
 
-(public) Qstring getId(QString id = “”):
+(public) QString getId(QString id = “”):
 ----------------------------------------
    Returns the id of the user given by the parameter id or if id 
    is empty the id of the logged in user.
@@ -130,17 +130,17 @@ TizFacebook(QObject *parent):
    Returns the whole name of the user given by the parameter 
    id or if id is empty the name of the loged in user.
 
-(public) Qstring getFirstName(QString id = “”):
+(public) QString getFirstName(QString id = “”):
 -----------------------------------------------
     Returns the first name of the user given by the parameter id or if 
     id is empty the first name of the loged in user.
 
-(public) Qstring getLastName(QString id = “”):
+(public) QString getLastName(QString id = “”):
 ----------------------------------------------
    Returns the last name of the user given by the parameter id or 
    if id is empty the first name of the loged in user.
 
-(public) Qpixmap getPicture(QString id = “”, bool forceDownload = false):
+(public) QSixmap getPicture(QString id = “”, bool forceDownload = false):
 -------------------------------------------------------------------------
    Load and returns the profile picture of a user represented by the 
    parameter id. The picture will be taken from the facebook directory. 
@@ -155,7 +155,7 @@ TizFacebook(QObject *parent):
    Returns true if the gender of the user is male. 
    Returns false if the gender is not male.
 
-(public) QstringList getFriendsUsingApp():
+(public) QStringList getFriendsUsingApp():
 ------------------------------------------
    Returns all the friends of the logged in user who also use your app.
 
@@ -171,11 +171,11 @@ TizFacebook(QObject *parent):
 ---------------------------------------
    Returns the date the requested access-token will be expired.
 
-(public) Bool isOnline():
+(public) bool isOnline():
 -------------------------
    Returns true if the last call of testConnection() was successful.
 
-(public) Void requestMe(bool force = false, bool save = false):
+(public) void requestMe(bool force = false, bool save = false):
 ---------------------------------------------------------------
    This function will request the public profile information of 
    the logged in user and stores it in memory. This only happens 
@@ -186,7 +186,7 @@ TizFacebook(QObject *parent):
    informations in the facebook directory which makes 
    the user data offline available.
 
-(public siganls) loginChanged(bool loggedIn, bool online):
+(public siganls) void loginChanged(bool loggedIn, bool online):
 ----------------------------------------------------------
    This signal is emitted when the login state changes. The parameters loggedIn 
    and online will have the same value as isLoggedIn() and isOnline() would return.
@@ -196,18 +196,18 @@ TizFacebook(QObject *parent):
       login()
       logout()
 
-(public signals) connectionFailed():
+(public signals) void connectionFailed():
 ------------------------------------
    This signal will be emitted when the connection runs out of time.
 
-(protected) QbyteArray simpleGet(QUrl url, int to = 0):
+(protected) QByteArray simpleGet(QUrl url, int to = 0):
 -------------------------------------------------------
    This function returns the raw reply represented by the parameter url. 
    The parameter will override the general timeout.
    See also:
       get()
 
-(protected) QjsonDocument get(QStirng path, Qstring fields, int to):
+(protected) QJsonDocument get(QStirng path, Qstring fields, int to):
 --------------------------------------------------------------------
    This function returns a QjsonDocument created by the 
    OpenGraph API. You don't need to care about connection and 

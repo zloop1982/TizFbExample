@@ -57,7 +57,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::onLoginButton()
 {
-    if(!tizFacebook->isLogedIn())
+    if(!tizFacebook->isLoggedIn())
         tizFacebook->login();
     else
         tizFacebook->logout();
